@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USAV 2025 - Kasaragod Expatriates Association</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            overflow-x: hidden;
+        }
+        
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes wave {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(-25%);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        @keyframes pulseGlow {
+            from {
+                box-shadow: 0 0 20px rgba(168, 85, 247, 0.4),
+                            0 0 40px rgba(168, 85, 247, 0.2),
+                            0 0 60px rgba(168, 85, 247, 0.1);
+            }
+            to {
+                box-shadow: 0 0 30px rgba(168, 85, 247, 0.6),
+                            0 0 60px rgba(168, 85, 247, 0.4),
+                            0 0 90px rgba(168, 85, 247, 0.2);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-200px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="rgba(255,255,255,0.1)"></path></svg>');
+            animation: wave 25s linear infinite;
+        }
+        
+        .wave1 {
+            animation-duration: 25s;
+            opacity: 0.1;
+        }
+        
+        .wave2 {
+            animation-duration: 20s;
+            opacity: 0.15;
+            animation-delay: -5s;
+        }
+        
+        .wave3 {
+            animation-duration: 15s;
+            opacity: 0.2;
+            animation-delay: -2s;
+        }
+        
+        .wave4 {
+            animation-duration: 10s;
+            opacity: 0.25;
+            animation-delay: -5s;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                         0 0 40px rgba(255, 255, 255, 0.6),
+                         0 0 60px rgba(255, 255, 255, 0.4);
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite alternate;
+        }
+        
+        .slide-in {
+            animation: slideIn 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .bounce-in {
+            animation: bounceIn 1s ease-out forwards;
+            opacity: 0;
+            transform: scale(0.3);
+        }
+        
+        .floating-note {
+            animation: float 10s linear infinite;
+            opacity: 0;
+        }
+        
+        .countdown-item {
+            transition: all 0.3s ease;
+        }
+        
+        .countdown-item:hover {
+            transform: scale(1.1) rotate(3deg);
+        }
+        
+        .info-card {
+            transition: all 0.5s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .performer-card {
+            transition: all 0.5s ease;
+        }
+        
+        .performer-card:hover {
+            transform: translateY(-15px) rotate(3deg);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .map-section {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(95, 64, 145, 0.6);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        .map-section h3 {
+            color: #ff4d4d;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .map-link-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .map-link-container i {
+            color: #ff4d4d;
+            font-size: 1.5em;
+        }
+
+        .map-link {
+            display: inline-block;
+            background-color: #ff4d4d;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(255, 77, 77, 0.3);
+            text-align: center;
+        }
+
+        .map-link:hover {
+            background-color: #ff3333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 77, 77, 0.4);
+        }
+
+        .location-address {
+            color: #cccccc;
+            font-size: 1em;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* Event poster image styling */
+        .event-poster {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 30px auto;
+            display: block;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .map-section h3 {
+                font-size: 1.3em;
+            }
+
+            .map-link {
+                font-size: 0.9em;
+                padding: 10px 20px;
+            }
+
+            .location-address {
+                font-size: 0.9em;
+            }
+
+            .event-poster {
+                max-width: 100%;
+                margin: 20px auto;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .map-link-container {
+                flex-direction: row;
+            }
+
+            .map-section {
+                padding: 25px;
+            }
+        }
+
+        /* Rotating Images Styles */
+        .rotating-image {
+            opacity: 0;
+            transform: scale(0.8) rotateY(90deg);
+            transition: all 0.6s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%) scale(0.8) rotateY(90deg);
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .rotating-image.active {
+            opacity: 1;
+            transform: translateX(-50%) scale(1) rotateY(0deg);
+            position: relative;
+            left: auto;
+            transform: scale(1) rotateY(0deg);
+        }
+
+        .image-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-dot.active {
+            background-color: #a855f7;
+            transform: scale(1.3);
+        }
+
+        .image-dot:hover {
+            background-color: rgba(168, 85, 247, 0.7);
+        }
+
+        .rotating-images-container {
+            position: relative;
+        }
+
+        #rotating-images {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 relative overflow-x-hidden">
+    <!-- Animated Background Particles -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div id="particles-container"></div>
+    </div>
+
+    <!-- Animated Wave Background -->
+    <div class="absolute bottom-0 left-0 right-0 pointer-events-none">
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="wave wave4"></div>
+    </div>
+
+    <!-- Floating Music Notes -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div id="music-notes"></div>
+    </div>
+
+    <!-- Audio Control -->
+    <button id="audio-control" class="fixed top-6 right-6 z-50 w-12 h-12 bg-black bg-opacity-50 rounded-full flex items-center justify-center text-white hover:bg-opacity-70 transition-all duration-300 backdrop-blur-sm border border-white border-opacity-20">
+        <i class="fas fa-play"></i>
+    </button>
+
+    <div class="relative z-10">
+        <!-- Sponsor Section -->
+        <section class="py-12 md:py-16 bg-black bg-opacity-30 relative">
+            <div class="container mx-auto px-4 text-center">
+                <div class="slide-in" style="animation-delay: 0.2s;">
+                    <p class="text-gray-300 text-lg md:text-xl mb-4 md:mb-6">Sponsored by</p>
+                    <h3 class="text-2xl md:text-4xl font-bold text-white mb-8 md:mb-12 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent px-4">
+                        Ahmed AL MAGHRIBI
+                    </h3>
+                    
+                    <div class="border-t border-gray-600 pt-8 md:pt-12 mt-8 md:mt-12">
+                        <p class="text-gray-300 text-lg md:text-xl mb-6 md:mb-8">Powered by</p>
+                        <div class="flex flex-col items-center gap-4 md:gap-6">
+                            <h3 class="text-xl md:text-3xl font-bold text-white px-4">Royal City Clinic</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hero Section -->
+        <section class="relative py-12 md:py-20 overflow-hidden">
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="text-center">
+                    <div class="bounce-in" style="animation-delay: 0.4s;">
+                        <h2 class="text-4xl md:text-7xl font-bold mb-4 glow-text px-4">
+                            <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                                ഉത്സവ്‌ 2025
+                            </span>
+                        </h2>
+                    </div>
+                    
+                    <div class="slide-in" style="animation-delay: 0.6s;">
+                        <p class="text-xl md:text-4xl text-white font-semibold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent px-4">
+                            കാസറഗോഡ്
+                        </p>
+                    </div>
+                    
+                    <!-- Countdown Timer -->
+                    <div class="slide-in" style="animation-delay: 0.8s;">
+                        <div class="bg-black bg-opacity-40 rounded-2xl md:rounded-3xl p-4 md:p-8 max-w-4xl mx-auto backdrop-blur-lg border border-white border-opacity-10 pulse-glow">
+                            <div class="flex items-center justify-center gap-2 md:gap-3 mb-4 md:mb-8">
+                                <i class="fas fa-clock text-purple-400 text-xl md:text-2xl"></i>
+                                <h3 class="text-xl md:text-3xl text-white font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                                    Event Starts In
+                                </h3>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6" id="countdown-timer">
+                                <!-- Countdown will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Event Poster -->
+                        <img src="https://scontent.fkwi4-3.fna.fbcdn.net/v/t39.30808-6/586575534_1281043380727328_5024491874432849850_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=upqD1YznPUYQ7kNvwF9a6H-&_nc_oc=AdkCbEGSHVftfO0ZT0Nb__uLJovHm37ezoFqX89eatVHnEORsQTxboA095eAfJgZTYg&_nc_zt=23&_nc_ht=scontent.fkwi4-3.fna&_nc_gid=pHiwEs8whICAlslizk51kQ&oh=00_AfiNzIu16fnWJlF2Bj9Q2KQFPDy8MnDD3od38GIEVu4kcA&oe=692CBE2C" 
+                             alt="USAV 2025 Event Poster" 
+                             class="event-poster">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Special Thanks Section -->
+        <section class="py-8 md:py-16 relative">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-8 md:mb-12 slide-in">
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                        Special Thanks To
+                    </h2>
+                    <p class="text-gray-300 text-lg md:text-xl">Our Valued Supporters</p>
+                </div>
+                
+                <div class="max-w-5xl mx-auto">
+                    <div class="relative overflow-hidden rounded-2xl bg-white bg-opacity-5 backdrop-blur-xl border border-white border-opacity-10 p-6 md:p-10">
+                        <div class="rotating-images-container flex items-center justify-center" style="min-height: 200px;">
+                            <div id="rotating-images" class="w-full max-w-md">
+                                <!-- Images will be dynamically added here -->
+                            </div>
+                        </div>
+                        <div class="flex justify-center gap-2 mt-6" id="image-dots">
+                            <!-- Dots will be dynamically added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Details -->
+        <section class="py-8 md:py-16 relative">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto">
+                    <div class="info-card bg-white bg-opacity-5 backdrop-blur-xl rounded-2xl p-4 md:p-8 text-white border border-white border-opacity-10 slide-in" style="animation-delay: 1s;">
+                        <div class="map-section">
+                            <h3>📍 Event Location</h3>
+                            <div class="map-link-container">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <a href="https://maps.app.goo.gl/jScLhDD3SrkwULzJ7" target="_blank" class="map-link">
+                                    View on Google Maps
+                                </a>
+                            </div>
+                            <p class="location-address">Indian Central School Open Auditorium (Abbassiya)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-black bg-opacity-60 py-8 relative">
+            <div class="container mx-auto px-4 text-center">
+                <p class="text-gray-300 mb-2 text-sm md:text-base">Reg. No: INDEMB.KWT.ASSN.189</p>
+                <p class="text-gray-400 text-base md:text-lg mb-2">www.keakuwait.com</p>
+                <p class="text-gray-400 text-base md:text-lg mt-4">Contact: KEA MEDIA WING</p>
+
+                <div class="mt-6 pt-6 border-t border-gray-700">
+                    <p class="text-gray-500 text-xs md:text-sm">Created by <span class="text-yellow-400 font-semibold">Rafeek Olavara</span></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Create background particles
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = window.innerWidth < 768 ? 25 : 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'absolute rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-20';
+                
+                const size = Math.random() * 30 + 10;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animation = `floatParticle ${15 + Math.random() * 20}s linear infinite`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Create floating music notes
+        function createMusicNotes() {
+            const container = document.getElementById('music-notes');
+            const notes = ['♪', '♫', '♬', '🎵', '🎶'];
+            const noteCount = window.innerWidth < 768 ? 6 : 12;
+            
+            for (let i = 0; i < noteCount; i++) {
+                const note = document.createElement('div');
+                note.className = 'absolute text-purple-300 opacity-30 floating-note';
+                note.textContent = notes[Math.floor(Math.random() * notes.length)];
+                
+                note.style.left = `${Math.random() * 100}%`;
+                note.style.top = `${Math.random() * 100}%`;
+                note.style.fontSize = `${20 + Math.random() * 30}px`;
+                note.style.animationDuration = `${10 + Math.random() * 10}s`;
+                note.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(note);
+            }
+        }
+        
+        // Countdown timer
+        function updateCountdown() {
+            const eventDate = new Date('2025-12-05T16:00:00');
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+            
+            let days = 0, hours = 0, minutes = 0, seconds = 0;
+            
+            if (distance > 0) {
+                days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            }
+            
+            const countdownContainer = document.getElementById('countdown-timer');
+            const units = [
+                { value: days, label: 'days' },
+                { value: hours, label: 'hours' },
+                { value: minutes, label: 'minutes' },
+                { value: seconds, label: 'seconds' }
+            ];
+            
+            countdownContainer.innerHTML = '';
+            
+            units.forEach((unit, index) => {
+                const unitElement = document.createElement('div');
+                unitElement.className = `countdown-item bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl md:rounded-2xl p-3 md:p-6 shadow-2xl`;
+                
+                unitElement.innerHTML = `
+                    <div class="text-2xl md:text-5xl font-bold text-white mb-1 md:mb-2">
+                        ${String(unit.value).padStart(2, '0')}
+                    </div>
+                    <div class="text-xs md:text-base text-purple-200 uppercase font-semibold tracking-wider">
+                        ${unit.label}
+                    </div>
+                `;
+                
+                countdownContainer.appendChild(unitElement);
+            });
+        }
+        
+        // Audio control
+        function setupAudioControl() {
+            const audioControl = document.getElementById('audio-control');
+            let isPlaying = false;
+            
+            const audio = new Audio('https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3');
+            audio.loop = true;
+            
+            audioControl.addEventListener('click', () => {
+                if (isPlaying) {
+                    audio.pause();
+                    audioControl.innerHTML = '<i class="fas fa-play"></i>';
+                } else {
+                    audio.play().catch(e => {
+                        console.log('Audio play failed:', e);
+                        audioControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    });
+                    audioControl.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                isPlaying = !isPlaying;
+            });
+        }
+        
+        // Initialize everything when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            createMusicNotes();
+            updateCountdown();
+            setupAudioControl();
+            setupRotatingImages();
+            
+            setInterval(updateCountdown, 1000);
+        });
+
+        // Rotating Images Setup
+        function setupRotatingImages() {
+            // Add your supporter images here
+            const images = [
+                {
+                    src: 'https://mediaoffice.ae/-/media/2023/august/10-08/01/al-ansari-financial-services-logo.jpg',
+                    alt: 'Supporter 1'
+                },
+                {
+                    src: 'https://mms.businesswire.com/media/20210401005609/en/868890/5/Malabar_gold_%26_diamonds_-_logo.jpg?download=1',
+                    alt: 'Supporter 2'
+                },
+                {
+                    src: 'https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzNGU0HXUuAPWeVOlmz59r-Sog---otHS-5Yi0Kk-2cAcoifC1HSUDdfVK8Yo7ggj884O3luls_yL5TAcDWGm0V0zPBHBLGQl4Ud8dQGmYGz67eNl37NmDowvt9OxR6SBVTifNX_V0UdUcK=s680-w680-h510-rw',
+                    alt: 'Supporter 3'
+                },
+                {
+                    src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUP1HDKy7MY5fdsK2h59ZARnuxcqCpOpAKLA&s',
+                    alt: 'Supporter 4'
+                },
+                {
+                    src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaQRuucK_1Mzj1hvqz-gzYSKo192bv_v7yCQ&s',
+                    alt: 'Supporter 5'
+                },
+                                {
+                    src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_CwQ3e5X7VJsb6bgYRtaVDpoTZltVWh62sA&s',
+                    alt: 'Supporter 5'
+                },
+                                {
+                    src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIebOHo7lMPNBJmVVuS5pBF6dv5gz_lFpu2Q&s',
+                    alt: 'Supporter 5'
+                },
+                                {
+                    src: 'https://tvshydergroup.com/images/branch/kuwait-branches.jpg',
+                    alt: 'Supporter 5'
+                },
+                                {
+                    src: 'https://lh3.googleusercontent.com/p/AF1QipPuJOj9gpzd8xG-vg-87exnWJBg9fplbPPhaVwy=s680-w680-h510-rw',
+                    alt: 'Supporter 5'
+                },
+                                {
+                    src: 'https://thakkara.com/wp-content/uploads/2023/01/WhatsApp-Image-2022-11-29-at-12.35.02-PM.jpeg',
+                    alt: 'Supporter 5'
+                },
+                                {
+                    src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR8Pw67g5Qd8u90Latnxci_s4pu7Zv1u98TA&s',
+                    alt: 'Supporter 5'
+                },
+                                {
+                    src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:RpVyt7a5nYLLG9f69MT8cCnH9o2xCCgd&s',
+                    alt: 'Supporter 5'
+                },
+                                {
+                    src: 'https://kuwaitofw.com/wp-content/uploads/2021/09/Lulu-Exchange-logo.jpg',
+                    alt: 'Supporter 5'
+                },
+                                {
+                    src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMmcQ-X-Bdd6cVmMR1Nrs7a6L-PK45yENHbQ&s',
+                    alt: 'Supporter 5'
+                },
+                                {
+                    src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5-vIPKSpuBonx7YyI3LmAN3iLLP9CJyWklCRaVijXq8eN9CqCdr5ttJhX2C1nCl4WfbA&usqp=CAU',
+                    alt: 'Supporter 5'
+                },
+                                {
+                    src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJiZQ32nfMCyl4EFMTvC3yxQfES6BcggZWlA&s',
+                    alt: 'Supporter 5'
+                }
+
+            ];
+
+            const container = document.getElementById('rotating-images');
+            const dotsContainer = document.getElementById('image-dots');
+            let currentIndex = 0;
+            let rotationInterval;
+
+            // Create image elements
+            images.forEach((image, index) => {
+                const img = document.createElement('img');
+                img.src = image.src;
+                img.alt = image.alt;
+                img.className = `rotating-image ${index === 0 ? 'active' : ''}`;
+                container.appendChild(img);
+
+                // Create dots
+                const dot = document.createElement('div');
+                dot.className = `image-dot ${index === 0 ? 'active' : ''}`;
+                dot.addEventListener('click', () => showImage(index));
+                dotsContainer.appendChild(dot);
+            });
+
+            function showImage(index) {
+                const allImages = container.querySelectorAll('.rotating-image');
+                const allDots = dotsContainer.querySelectorAll('.image-dot');
+
+                allImages.forEach((img, i) => {
+                    if (i === index) {
+                        img.classList.add('active');
+                    } else {
+                        img.classList.remove('active');
+                    }
+                });
+
+                allDots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+
+                currentIndex = index;
+            }
+
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % images.length;
+                showImage(currentIndex);
+            }
+
+            // Auto-rotate every 3 seconds
+            rotationInterval = setInterval(nextImage, 3000);
+
+            // Pause on hover
+            container.addEventListener('mouseenter', () => {
+                clearInterval(rotationInterval);
+            });
+
+            container.addEventListener('mouseleave', () => {
+                rotationInterval = setInterval(nextImage, 3000);
+            });
+        }
+    </script>
+</body>
+</html>
